@@ -1,0 +1,19 @@
+version: '3'
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "5000:80"
+        volumes:
+            - ./nginx/:/etc/nginx/conf.d/
+            - ./public:/php-backend/public
+        restart: always
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./public:/php-backend/public
+        restart: always
+volumes:
+    php-backend: {}
